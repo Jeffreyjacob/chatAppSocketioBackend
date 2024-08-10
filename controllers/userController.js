@@ -76,10 +76,10 @@ export const AddProfileImageHandler = async(req,res,next)=>{
         throw new AppError("File is required",401)
       }
       const date = Date.now()
-      let filename= "upload/profile/"+ date + req.file.originalName
+      let filename= "upload/profile/"+ date + req.file.originalname
        renameSync(req.file.path,filename);
 
-       const updatedUser = await User.findOneAndUpdate(userId,{image:filename},{new:true,runValidators:true})
+       const updatedUser = await User.findByIdAndUpdate(userId,{image:filename},{new:true,runValidators:true})
 
        return res.status(200).json({
         success:true,
@@ -95,7 +95,20 @@ export const AddProfileImageHandler = async(req,res,next)=>{
 
 export const RemoveProfileImageHandler = async(req,res,next)=>{
     try{
-
+      const userId = req.user._id
+      const user = await User.findById(userId)
+      if(!user){
+        throw new AppError("User not found",404)
+      }
+      if(user.image){
+        unlinkSync(user.image);
+      }
+      user.image = null;
+      await user.save()
+      return res.status(200).json({
+        success:true,
+        message:"Profile Image removed successfully!"
+      })
     }catch(error){
         console.log(error)
         next(error)

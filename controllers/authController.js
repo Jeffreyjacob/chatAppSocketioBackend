@@ -67,3 +67,16 @@ export const LoginHandler = async (req,res,next)=>{
         next(error)
     }
 }
+
+export const LogoutHandler = async (req,res,next) =>{
+    try{
+       res.cookie("token","",{maxAge:1, httpOnly:true,sameSite:"strict"})
+     return res.status(200).json({
+        success:true,
+        messsage:"Profile logout successfully!"
+     })
+    }catch(error){
+      console.log(error)
+      next(error)
+    }
+}

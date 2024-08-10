@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.route("/userInfo").get(verifyToken,UserInfoHandler)
 router.route("/updateProfile").post(verifyToken,UpdateProfileHandler)
-router.route("/addProfileImage",verifyToken,upload.single("profile-image"),AddProfileImageHandler)
-router.route("/removeProfileImage",verifyToken,RemoveProfileImageHandler)
+router.route("/addProfileImage").post(verifyToken,upload.single("profile-image"),AddProfileImageHandler)
+router.route("/removeProfileImage").delete(verifyToken,RemoveProfileImageHandler)
 
 export default router
