@@ -8,6 +8,7 @@ import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
 import contactRouter from './routes/contactRoute.js'
 import setUpSocket from "./socket.js";
+import MessageRoute from './routes/messageRoute.js';
 
 dotenv.config()
 
@@ -25,6 +26,7 @@ app.use(cookieParser())
 app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/contact",contactRouter)
+app.use("/api/message",MessageRoute)
 
 app.use(ErrorHandler);
 
