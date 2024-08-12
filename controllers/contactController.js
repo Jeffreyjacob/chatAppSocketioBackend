@@ -95,3 +95,20 @@ export const getContactForDmList = async (req, res, next) => {
       next(error);
     }
   };
+
+  export const getAllContactsHandlerS = async(req,res,next)=>{
+     try{
+       const user = await User.find({_id:{$ne:req.user._id}},"firstName lastName _id email")
+       const contacts = user.map((user)=>({
+        label: user.firstName ? `${user.firstName} ${user.lastName}` : user.email,
+        value: user._id
+       }));
+       return res.status(200).json({ 
+         success:true,
+         message:contacts
+       })
+     }catch(error){
+       console.log(error)
+       next(error)
+     }
+  }

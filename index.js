@@ -9,6 +9,8 @@ import userRouter from './routes/userRoute.js';
 import contactRouter from './routes/contactRoute.js'
 import setUpSocket from "./socket.js";
 import MessageRoute from './routes/messageRoute.js';
+import ChannelRoute from './routes/channelRoute.js';
+
 
 dotenv.config()
 
@@ -28,6 +30,7 @@ app.use("/api/auth",authRouter)
 app.use("/api/user",userRouter)
 app.use("/api/contact",contactRouter)
 app.use("/api/message",MessageRoute)
+app.use("/api/channel",ChannelRoute)
 
 app.use(ErrorHandler);
 
